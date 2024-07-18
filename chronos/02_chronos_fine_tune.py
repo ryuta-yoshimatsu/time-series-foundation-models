@@ -24,13 +24,13 @@
 
 # MAGIC %md
 # MAGIC ## Prepare data 
-# MAGIC We use [`datasetsforecast`](https://github.com/Nixtla/datasetsforecast/tree/main/) package to download M4 data. M4 dataset contains a set of time series which we use for testing MMF. Below we have written a number of custome functions to convert M4 time series to an expected format.
+# MAGIC We use [`datasetsforecast`](https://github.com/Nixtla/datasetsforecast/tree/main/) package to download M4 data. M4 dataset contains a set of time series which we use for testing. Below we have written a number of custome functions to convert M4 time series to an expected format.
 # MAGIC
 # MAGIC Make sure that the catalog and the schema already exist.
 
 # COMMAND ----------
 
-catalog = "mmf"  # Name of the catalog we use to manage our assets
+catalog = "tsfm"  # Name of the catalog we use to manage our assets
 db = "m4"  # Name of the schema we use to manage our assets (e.g. datasets)
 volume = "chronos_fine_tune" # Name of the volume we store the data and the weigts
 model = "chronos-t5-tiny" # Chronos model to finetune. Alternatives: -mini, -small, -base, -large
@@ -130,11 +130,11 @@ convert_to_arrow(
 # MAGIC Make sure that you have the configuration yaml files placed inside the `configs` folder and the `train.py` script in the same directory. These two assets are taken directly from [chronos-forecasting/scripts/training](https://github.com/amazon-science/chronos-forecasting/tree/main/scripts/training). They are subject to change as the Chronos' team develops the framework further. Keep your eyes on the latest changes (we will try too) and use the latest versions as needed. We have made a small change to our `train.py` script and set the frequency of the time series to daily ("D"). 
 # MAGIC
 # MAGIC Inside the configuration yaml (for this example, `configs/chronos-t5-tiny.yaml`), make sure to set the parameters: 
-# MAGIC - `training_data_paths` to `/Volumes/mmf/m4/chronos_fine_tune/data.arrow`, where your arrow converted file is stored
+# MAGIC - `training_data_paths` to `/Volumes/tsfm/m4/chronos_fine_tune/data.arrow`, where your arrow converted file is stored
 # MAGIC - `probability` to `1.0` if there is only one data source
 # MAGIC - `prediction_length` to your use case's forecasting horizon (in this example `10`)
 # MAGIC - `num_samples` to how many sample you want to generate  
-# MAGIC - `output_dir` to `/Volumes/mmf/m4/chronos_fine_tune/`, where you want to store your fine-tuned weights
+# MAGIC - `output_dir` to `/Volumes/tsfm/m4/chronos_fine_tune/`, where you want to store your fine-tuned weights
 # MAGIC
 # MAGIC And other parameters if needed. 
 # MAGIC
@@ -249,7 +249,7 @@ with mlflow.start_run() as run:
 
 # MAGIC %md
 # MAGIC ##Reload Model
-# MAGIC We reload the model from the registry and perform forecasting on the in-training time series (for testing purpose). You can also go ahead and deploy this model behind a Model Serving's real-time endpoint. See the previous notebook: [`01_chronos_load_inference`](https://github.com/databricks-industry-solutions/many-model-forecasting/blob/main/examples/foundation-model-examples/chronos/01_chronos_load_inference.py) for more information.
+# MAGIC We reload the model from the registry and perform forecasting on the in-training time series (for testing purpose). You can also go ahead and deploy this model behind a Model Serving's real-time endpoint. See the previous notebook: `01_chronos_load_inference` for more information.
 
 # COMMAND ----------
 
@@ -302,4 +302,12 @@ loaded_model.predict(input_data)
 
 # COMMAND ----------
 
-
+# MAGIC %md
+# MAGIC © 2024 Databricks, Inc. All rights reserved. 
+# MAGIC
+# MAGIC The sources in all notebooks in this directory and the sub-directories are provided subject to the Databricks License. All included or referenced third party libraries are subject to the licenses set forth below.
+# MAGIC
+# MAGIC | library                                | description             | license    | source                                              |
+# MAGIC |----------------------------------------|-------------------------|------------|-----------------------------------------------------|
+# MAGIC | datasetsforecast | Datasets for Time series forecasting | MIT | https://pypi.org/project/datasetsforecast/
+# MAGIC | chronos | Pretrained (Language) Models for Probabilistic Time Series Forecasting | Apache 2.0 | https://github.com/amazon-science/chronos-forecasting

@@ -114,30 +114,14 @@ print(f"Saved data to {catalog}.{db}.m4_monthly_train")
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## Daily Rossmann with Exogenous Regressors
+# MAGIC © 2024 Databricks, Inc. All rights reserved. 
+# MAGIC
+# MAGIC The sources in all notebooks in this directory and the sub-directories are provided subject to the Databricks License. All included or referenced third party libraries are subject to the licenses set forth below.
+# MAGIC
+# MAGIC | library                                | description             | license    | source                                              |
+# MAGIC |----------------------------------------|-------------------------|------------|-----------------------------------------------------|
+# MAGIC | datasetsforecast | Datasets for Time series forecasting | MIT | https://pypi.org/project/datasetsforecast/
 
 # COMMAND ----------
 
-# MAGIC %md Download the dataset from [Kaggle](kaggle.com/competitions/rossmann-store-sales/data) and store them in the volume.
 
-# COMMAND ----------
-
-# Randomly select 100 stores to forecast
-#import random
-#random.seed(7)
-
-# Number of time series to sample
-#sample = True
-#stores = sorted(random.sample(range(0, 1000), n))
-
-#train = spark.read.csv(f"/Volumes/{catalog}/rossmann/csv/train.csv", header=True, inferSchema=True)
-#test = spark.read.csv(f"/Volumes/{catalog}/rossmann/csv/test.csv", header=True, inferSchema=True)
-
-#if sample:
-#    train = train.filter(train.Store.isin(stores))
-#    test = test.filter(test.Store.isin(stores))
-
-#train.write.mode("overwrite").option("mergeSchema", "true").saveAsTable(f"{catalog}.rossmann.rossmann_daily_train")
-#test.write.mode("overwrite").option("mergeSchema", "true").saveAsTable(f"{catalog}.rossmann.rossmann_daily_test")
-
-#print(f"Saved data to {catalog}.rossmann.rossmann_daily_train and {catalog}.rossmann.rossmann_daily_test")

@@ -1,6 +1,6 @@
 hydra:
   run:
-    dir: /Volumes/mmf/random/moirai_fine_tune/outputs/${hydra:runtime.choices.model}/${hydra:runtime.choices.data}/${run_name}
+    dir: /Volumes/tsfm/random/moirai_fine_tune/outputs/${hydra:runtime.choices.model}/${hydra:runtime.choices.data}/${run_name}
 defaults:
   - model: ???
   - data: ???

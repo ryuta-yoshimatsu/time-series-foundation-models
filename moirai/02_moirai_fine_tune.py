@@ -22,13 +22,13 @@
 
 # MAGIC %md
 # MAGIC ## Prepare Data
-# MAGIC We are using [`datasetsforecast`](https://github.com/Nixtla/datasetsforecast/tree/main/) package to download M4 data. M4 dataset contains a set of time series which we use for testing MMF. Below we have written a number of custome functions to convert M4 time series to an expected format.
+# MAGIC We are using [`datasetsforecast`](https://github.com/Nixtla/datasetsforecast/tree/main/) package to download M4 data. M4 dataset contains a set of time series which we use for testing. Below we have written a number of custome functions to convert M4 time series to an expected format.
 # MAGIC
 # MAGIC Make sure that the catalog and the schema already exist.
 
 # COMMAND ----------
 
-catalog = "mmf"  # Name of the catalog we use to manage our assets
+catalog = "tsfm"  # Name of the catalog we use to manage our assets
 db = "random"  # Name of the schema we use to manage our assets (e.g. datasets)
 volume = "moirai_fine_tune" # Name of the volume we store the data and the weigts
 model = "moirai-1.0-R-small"  # Alternatibely: moirai-1.0-R-base, moirai-1.0-R-large
@@ -118,7 +118,7 @@ os.environ['CUSTOM_DATA_PATH'] = f"/Volumes/{catalog}/{db}/{volume}"
 
 # COMMAND ----------
 
-# MAGIC %sh python -m uni2ts.data.builder.simple random /Volumes/mmf/random/moirai_fine_tune/random.csv \
+# MAGIC %sh python -m uni2ts.data.builder.simple random /Volumes/tsfm/random/moirai_fine_tune/random.csv \
 # MAGIC     --dataset_type long \
 # MAGIC     --offset 640
 
@@ -127,11 +127,11 @@ os.environ['CUSTOM_DATA_PATH'] = f"/Volumes/{catalog}/{db}/{volume}"
 # MAGIC %md
 # MAGIC ##Run Fine-tuning
 # MAGIC
-# MAGIC In this example, we wil fine-tune `moirai-1.0-R-small` for max 100 epochs with early stopping (can be specified here: [`examples/foundation-model-examples/moirai/conf/finetune/default.yaml`](https://github.com/databricks-industry-solutions/many-model-forecasting/blob/main/examples/foundation-model-examples/moirai/conf/finetune/default.yaml)). The learning rate is set to 1e-3, which you can modify in the model specific configuration file: [`examples/foundation-model-examples/moirai/conf/finetune/model/moirai_1.0_R_small.yaml`](https://github.com/databricks-industry-solutions/many-model-forecasting/blob/main/examples/foundation-model-examples/moirai/conf/finetune/model/moirai_1.0_R_small.yaml). 
+# MAGIC In this example, we wil fine-tune `moirai-1.0-R-small` for max 100 epochs with early stopping (can be specified here: `moirai/conf/finetune/default.yaml`). The learning rate is set to 1e-3, which you can modify in the model specific configuration file: `moirai/conf/finetune/model/moirai_1.0_R_small.yaml`. 
 # MAGIC
-# MAGIC Make sure that you have the configuration yaml files placed inside the [`conf`](examples/foundation-model-examples/moirai/conf) folder and the [`train.py`](https://github.com/databricks-industry-solutions/many-model-forecasting/blob/main/examples/foundation-model-examples/moirai/train.py) script in the same directory. These two assets are taken directly from and [cli/conf](https://github.com/SalesforceAIResearch/uni2ts/tree/main/cli/conf) and [cli/train.py](https://github.com/SalesforceAIResearch/uni2ts/blob/main/cli/train.py). They are subject to change as the Moirai' team develops the framework further. Keep your eyes on the latest changes (we will try too) and use the latest versions as needed.
+# MAGIC Make sure that you have the configuration yaml files placed inside the `moirai/conf` folder and the `moirai/train.py` script in the same directory. These two assets are taken directly from and [cli/conf](https://github.com/SalesforceAIResearch/uni2ts/tree/main/cli/conf) and [cli/train.py](https://github.com/SalesforceAIResearch/uni2ts/blob/main/cli/train.py). They are subject to change as the Moirai' team develops the framework further. Keep your eyes on the latest changes (we will try too) and use the latest versions as needed.
 # MAGIC
-# MAGIC The key configuration files to be customized for you use case are [`examples/foundation-model-examples/moirai/conf/finetune/default.yaml`](https://github.com/databricks-industry-solutions/many-model-forecasting/blob/main/examples/foundation-model-examples/moirai/conf/finetune/default.yaml), [`examples/foundation-model-examples/moirai/conf/finetune/data/random.yaml`](https://github.com/databricks-industry-solutions/many-model-forecasting/blob/main/examples/foundation-model-examples/moirai/conf/finetune/data/random.yaml) and [`examples/foundation-model-examples/moirai/conf/finetune/val_data/random.yaml`](https://github.com/databricks-industry-solutions/many-model-forecasting/blob/main/examples/foundation-model-examples/moirai/conf/finetune/val_data/random.yaml). Read through the Moirai [documentation](https://github.com/SalesforceAIResearch/uni2ts) for more detail.
+# MAGIC The key configuration files to be customized for you use case are `moirai/conf/finetune/default.yaml`, `moirai/conf/finetune/data/random.yaml` and `moirai/conf/finetune/val_data/random.yaml`. Read through the Moirai [documentation](https://github.com/SalesforceAIResearch/uni2ts) for more detail.
 
 # COMMAND ----------
 
@@ -268,4 +268,12 @@ loaded_model.predict(input_data)  # Use the loaded model to make predictions on 
 
 # COMMAND ----------
 
-
+# MAGIC %md
+# MAGIC © 2024 Databricks, Inc. All rights reserved. 
+# MAGIC
+# MAGIC The sources in all notebooks in this directory and the sub-directories are provided subject to the Databricks License. All included or referenced third party libraries are subject to the licenses set forth below.
+# MAGIC
+# MAGIC | library                                | description             | license    | source                                              |
+# MAGIC |----------------------------------------|-------------------------|------------|-----------------------------------------------------|
+# MAGIC | datasetsforecast | Datasets for Time series forecasting | MIT | https://pypi.org/project/datasetsforecast/
+# MAGIC | moirai | Unified Training of Universal Time Series Forecasting Transformers | Apache 2.0 | https://github.com/SalesforceAIResearch/uni2ts
