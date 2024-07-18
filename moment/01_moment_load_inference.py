@@ -23,13 +23,13 @@
 
 # MAGIC %md
 # MAGIC ## Prepare data 
-# MAGIC We use [`datasetsforecast`](https://github.com/Nixtla/datasetsforecast/tree/main/) package to download M4 data. M4 dataset contains a set of time series which we use for testing MMF. Below we have written a number of custome functions to convert M4 time series to an expected format.
+# MAGIC We use [`datasetsforecast`](https://github.com/Nixtla/datasetsforecast/tree/main/) package to download M4 data. M4 dataset contains a set of time series which we use for testing. Below we have written a number of custome functions to convert M4 time series to an expected format.
 # MAGIC
 # MAGIC Make sure that the catalog and the schema already exist.
 
 # COMMAND ----------
 
-catalog = "mmf"  # Name of the catalog we use to manage our assets
+catalog = "tsfm"  # Name of the catalog we use to manage our assets
 db = "m4"  # Name of the schema we use to manage our assets (e.g. datasets)
 n = 100  # Number of time series to sample
 
@@ -186,6 +186,9 @@ import numpy as np
 from mlflow.models import infer_signature
 from mlflow.models.signature import ModelSignature
 from mlflow.types import DataType, Schema, TensorSpec
+
+# Set the MLflow registry URI to use Databricks Unity Catalog
+mlflow.set_registry_uri("databricks-uc")
 
 # Define a custom MLflow Python model class for MomentModel
 class MomentModel(mlflow.pyfunc.PythonModel):
@@ -487,4 +490,12 @@ func_delete_model_serving_endpoint(model_serving_endpoint_name)
 
 # COMMAND ----------
 
-
+# MAGIC %md
+# MAGIC © 2024 Databricks, Inc. All rights reserved. 
+# MAGIC
+# MAGIC The sources in all notebooks in this directory and the sub-directories are provided subject to the Databricks License. All included or referenced third party libraries are subject to the licenses set forth below.
+# MAGIC
+# MAGIC | library                                | description             | license    | source                                              |
+# MAGIC |----------------------------------------|-------------------------|------------|-----------------------------------------------------|
+# MAGIC | datasetsforecast | Datasets for Time series forecasting | MIT | https://pypi.org/project/datasetsforecast/
+# MAGIC | moment | A Family of Open Time-series Foundation Models | MIT | https://github.com/moment-timeseries-foundation-model/moment

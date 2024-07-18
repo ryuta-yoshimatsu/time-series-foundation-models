@@ -1,5 +1,5 @@
 training_data_paths:
-- "/Volumes/mmf/m4/chronos_fine_tune/data.arrow"
+- "/Volumes/tsfm/m4/chronos_fine_tune/data.arrow"
 probability:
 - 1.0
 context_length: 512
@@ -18,7 +18,7 @@ model_id: google/t5-efficient-tiny
 model_type: seq2seq
 random_init: true
 tie_embeddings: true
-output_dir: "/Volumes/mmf/m4/chronos_fine_tune/"
+output_dir: "/Volumes/tsfm/m4/chronos_fine_tune/"
 tf32: true
 torch_compile: true
 tokenizer_class: "MeanScaleUniformBins"

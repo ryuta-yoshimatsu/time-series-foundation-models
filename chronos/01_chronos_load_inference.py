@@ -23,13 +23,13 @@
 
 # MAGIC %md
 # MAGIC ## Prepare data 
-# MAGIC We use [`datasetsforecast`](https://github.com/Nixtla/datasetsforecast/tree/main/) package to download M4 data. M4 dataset contains a set of time series which we use for testing MMF. Below we have written a number of custome functions to convert M4 time series to an expected format.
+# MAGIC We use [`datasetsforecast`](https://github.com/Nixtla/datasetsforecast/tree/main/) package to download M4 data. M4 dataset contains a set of time series which we use for testing. Below we have written a number of custome functions to convert M4 time series to an expected format.
 # MAGIC
 # MAGIC Make sure that the catalog and the schema already exist.
 
 # COMMAND ----------
 
-catalog = "mmf"  # Name of the catalog we use to manage our assets
+catalog = "tsfm"  # Name of the catalog we use to manage our assets
 db = "m4" # Name of the schema we use to manage our assets (e.g. datasets)
 n = 100  # Number of time series to sample
 
@@ -519,4 +519,12 @@ func_delete_model_serving_endpoint(model_serving_endpoint_name)
 
 # COMMAND ----------
 
-
+# MAGIC %md
+# MAGIC © 2024 Databricks, Inc. All rights reserved. 
+# MAGIC
+# MAGIC The sources in all notebooks in this directory and the sub-directories are provided subject to the Databricks License. All included or referenced third party libraries are subject to the licenses set forth below.
+# MAGIC
+# MAGIC | library                                | description             | license    | source                                              |
+# MAGIC |----------------------------------------|-------------------------|------------|-----------------------------------------------------|
+# MAGIC | datasetsforecast | Datasets for Time series forecasting | MIT | https://pypi.org/project/datasetsforecast/
+# MAGIC | chronos | Pretrained (Language) Models for Probabilistic Time Series Forecasting | Apache 2.0 | https://github.com/amazon-science/chronos-forecasting

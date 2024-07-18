@@ -34,13 +34,13 @@ subprocess.check_call([sys.executable, "-m", "pip", "install", package, "--quiet
 
 # MAGIC %md
 # MAGIC ## Prepare data 
-# MAGIC We use [`datasetsforecast`](https://github.com/Nixtla/datasetsforecast/tree/main/) package to download M4 data. M4 dataset contains a set of time series which we use for testing MMF. Below we have written a number of custome functions to convert M4 time series to an expected format.
+# MAGIC We use [`datasetsforecast`](https://github.com/Nixtla/datasetsforecast/tree/main/) package to download M4 data. M4 dataset contains a set of time series which we use for testing. Below we have written a number of custome functions to convert M4 time series to an expected format.
 # MAGIC
 # MAGIC Make sure that the catalog and the schema already exist.
 
 # COMMAND ----------
 
-catalog = "mmf"  # Name of the catalog we use to manage our assets
+catalog = "tsfm"  # Name of the catalog we use to manage our assets
 db = "m4"  # Name of the schema we use to manage our assets (e.g. datasets)
 n = 100  # Number of time series to sample
 
@@ -65,7 +65,7 @@ display(df)
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC Distribution of the inference is managed by TimesFM so we don't need to use Pandas UDF. See the [github repository](https://github.com/google-research/timesfm/tree/master?tab=readme-ov-file#initialize-the-model-and-load-a-checkpoint) of TimesFM for detailed description of the input parameters. 
+# MAGIC Distribution of the inference is managed by TimesFM so we don't need to use Pandas UDF. See the Github [repository](https://github.com/google-research/timesfm/tree/master?tab=readme-ov-file#initialize-the-model-and-load-a-checkpoint) of TimesFM for detailed description of the input parameters. 
 
 # COMMAND ----------
 
@@ -79,7 +79,7 @@ tfm = timesfm.TimesFm(
     output_patch_len=128,  # Length of the output patch.
     num_layers=20,
     model_dims=1280,
-    backend="gpu",  # Backend for computation, set to use GPU for faster processing.
+    backend="cpu",  # Backend for computation, set to gpu for faster processing.
 )
 
 # Load the pre-trained model from the specified checkpoint.
@@ -137,7 +137,7 @@ class TimesFMModel(mlflow.pyfunc.PythonModel):
             output_patch_len=128,  # Length of the output patch.
             num_layers=20,
             model_dims=1280,
-            backend="gpu",  # Backend for computation, set to GPU.
+            backend="cpu",  # Backend for computation, set to gpu for faster processing.
         )
         # Load the pre-trained model from the specified checkpoint
         self.tfm.load_from_checkpoint(repo_id=self.repository)
@@ -259,7 +259,7 @@ my_json = {
             {
                 "model_name": registered_model_name,
                 "model_version": model_version,
-                "workload_type": "GPU_SMALL",
+                "workload_type": "CPU",
                 "workload_size": "Small",
                 "scale_to_zero_enabled": "true",
             }
@@ -427,3 +427,15 @@ forecast(df)
 
 # Delete the serving endpoint
 func_delete_model_serving_endpoint(model_serving_endpoint_name)
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC © 2024 Databricks, Inc. All rights reserved. 
+# MAGIC
+# MAGIC The sources in all notebooks in this directory and the sub-directories are provided subject to the Databricks License. All included or referenced third party libraries are subject to the licenses set forth below.
+# MAGIC
+# MAGIC | library                                | description             | license    | source                                              |
+# MAGIC |----------------------------------------|-------------------------|------------|-----------------------------------------------------|
+# MAGIC | datasetsforecast | Datasets for Time series forecasting | MIT | https://pypi.org/project/datasetsforecast/
+# MAGIC | timesfm | A pretrained time-series foundation model developed by Google Research for time-series forecasting | Apache 2.0 | https://github.com/google-research/timesfm
