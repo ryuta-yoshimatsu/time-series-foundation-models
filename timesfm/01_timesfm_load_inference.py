@@ -230,6 +230,8 @@ loaded_model.predict(df)  # Use the loaded model to make predictions on the inpu
 # MAGIC %md
 # MAGIC ## Deploy Model
 # MAGIC We will deploy our model behind a real-time endpoint of [Databricks Mosaic AI Model Serving](https://www.databricks.com/product/model-serving).
+# MAGIC
+# MAGIC **Disclaimer**: TimesFM model deployment on Model Serving endpoint (below cells) does not work until the issue reported here is resolved https://github.com/google-research/timesfm/issues/41
 
 # COMMAND ----------
 
@@ -262,6 +264,9 @@ my_json = {
                 "workload_type": "CPU",
                 "workload_size": "Small",
                 "scale_to_zero_enabled": "true",
+                "environment_vars":{
+                    "JAX_PLATFORMS": "cpu"
+                }
             }
         ],
         "auto_capture_config": {
