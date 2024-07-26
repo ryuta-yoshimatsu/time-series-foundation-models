@@ -70,7 +70,7 @@ scope_name = "time-gpt"
 
 # MAGIC %md
 # MAGIC ## Prepare data 
-# MAGIC We use [`datasetsforecast`](https://github.com/Nixtla/datasetsforecast/tree/main/) package to download M4 data. M4 dataset contains a set of time series which we use for testing. Below we have written a number of custome functions to convert M4 time series to an expected format.
+# MAGIC We use [`datasetsforecast`](https://github.com/Nixtla/datasetsforecast/tree/main/) package to download M4 data. M4 dataset contains a set of time series which we use for testing. See the `data_preparation` notebook for a number of custom functions we wrote to convert M4 time series to an expected format.
 # MAGIC
 # MAGIC Make sure that the catalog and the schema already exist.
 
