@@ -1,5 +1,7 @@
 <img src=https://raw.githubusercontent.com/databricks-industry-solutions/.github/main/profile/solacc_logo.png width="600px">
 
+# This repository has been moved to the [Databricks Industry Solutions page](https://github.com/databricks-industry-solutions/transformer_forecasting).
+
 [![DBR](https://img.shields.io/badge/DBR-CHANGE_ME-red?logo=databricks&style=for-the-badge)](https://docs.databricks.com/release-notes/runtime/CHANGE_ME.html)
 [![CLOUD](https://img.shields.io/badge/CLOUD-CHANGE_ME-blue?logo=googlecloud&style=for-the-badge)](https://databricks.com/try-databricks)
 
@@ -10,7 +12,7 @@ WHAT IS THE BUSINESS PROBLEM ADDRESSED BY THIS SOLUTION
 IMAGE TO REFERENCE ARCHITECTURE
 
 ## Authors
-<john.doe@databricks.com>
+<ryuta.yoshimatsu@databricks.com>
 
 ## Project support 
 
